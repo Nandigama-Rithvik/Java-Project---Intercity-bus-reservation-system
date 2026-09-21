@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class BusReservation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String[] buses = {"Bus 101", "Bus 102", "Bus 103"};
+        int[] fare = {500, 600, 450};
+        int[] seats = {20, 20, 20};
+
+        System.out.println("=== INTERCITY BUS RESERVATION SYSTEM ===");
+
+        System.out.print("Enter Source City: ");
+        String source = sc.nextLine();
+
+        System.out.print("Enter Destination City: ");
+        String destination = sc.nextLine();
+
+        System.out.print("Enter Travel Date: ");
+        String date = sc.nextLine();
+
+        System.out.println("\nAvailable Buses:");
+        for (int i = 0; i < buses.length; i++) {
+            System.out.println((i + 1) + ". " + buses[i] +
+                    " | Fare: Rs." + fare[i] +
+                    " | Seats: " + seats[i]);
+        }
+
+        System.out.print("\nSelect Bus (1-3): ");
+        int choice = sc.nextInt();
+
+        if (choice < 1 || choice > 3) {
+            System.out.println("Invalid bus selection.");
+            return;
+        }
+
+        int busIndex = choice - 1;
+
+        System.out.print("Enter Number of Seats: ");
+        int requiredSeats = sc.nextInt();
+
+        if (requiredSeats <= 0 || requiredSeats > seats[busIndex]) {
+            System.out.println("Seats not available.");
+        } else {
+            int totalFare = requiredSeats * fare[busIndex];
+            seats[busIndex] -= requiredSeats;
+
+            sc.nextLine();
+            System.out.print("Enter Passenger Name: ");
+            String name = sc.nextLine();
+
+            System.out.println("\n===== RESERVATION CONFIRMED =====");
+            System.out.println("Passenger Name : " + name);
+            System.out.println("From           : " + source);
+            System.out.println("To             : " + destination);
+            System.out.println("Travel Date    : " + date);
+            System.out.println("Bus            : " + buses[busIndex]);
+            System.out.println("Seats Booked   : " + requiredSeats);
+            System.out.println("Total Fare     : Rs." + totalFare);
+            System.out.println("Remaining Seats: " + seats[busIndex]);
+            System.out.println("=================================");
+        }
+
+        sc.close();
+    }
+}
